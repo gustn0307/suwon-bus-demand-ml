@@ -1,0 +1,12 @@
+{
+  "tests_run": 6,
+  "failures": 0,
+  "errors": 0,
+  "success": true,
+  "csv_sha256_after": "67eab89c329abbfe75421c9b25e2aec0dadd9dfc699b2096dd2bf0da4ae4811b",
+  "server": {
+    "health": "ok",
+    "page_http_status": 200,
+    "server_stopped": true
+  }
+}

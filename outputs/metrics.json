@@ -1,0 +1,140 @@
+{
+  "selected_model": "Ridge",
+  "selection_metric": "Validation MAE (July)",
+  "station_selection": {
+    "period": "2026-06-01..2026-07-31",
+    "min_days": 55,
+    "top_n": 100,
+    "ranking": "total_boardings descending; station ID ascending for ties"
+  },
+  "splits": {
+    "Train": {
+      "start": "2026-06-01",
+      "end": "2026-06-30",
+      "rows": 3000
+    },
+    "Validation": {
+      "start": "2026-07-01",
+      "end": "2026-07-31",
+      "rows": 3100
+    },
+    "Test": {
+      "start": "2026-08-01",
+      "end": "2026-08-31",
+      "rows": 3100
+    }
+  },
+  "candidate_metrics": [
+    {
+      "model": "Dummy",
+      "split": "Train",
+      "rows": 3000,
+      "MAE": 814.0954026666666,
+      "RMSE": 1279.1948750116226,
+      "R2": 0.0,
+      "fit_seconds": 0.030540899955667555
+    },
+    {
+      "model": "Dummy",
+      "split": "Validation",
+      "rows": 3100,
+      "MAE": 815.2705083870967,
+      "RMSE": 1225.1720401239245,
+      "R2": -0.006500810782535504,
+      "fit_seconds": 0.044382299995049834
+    },
+    {
+      "model": "Ridge",
+      "split": "Train",
+      "rows": 3000,
+      "MAE": 193.88883667262527,
+      "RMSE": 274.9891217696227,
+      "R2": 0.9537876976105182,
+      "fit_seconds": 0.031449500005692244
+    },
+    {
+      "model": "Ridge",
+      "split": "Validation",
+      "rows": 3100,
+      "MAE": 215.93346924925248,
+      "RMSE": 297.5165326858035,
+      "R2": 0.9406470672963241,
+      "fit_seconds": 0.044942099950276315
+    },
+    {
+      "model": "RandomForest",
+      "split": "Train",
+      "rows": 3000,
+      "MAE": 302.48033322781754,
+      "RMSE": 376.34273268579256,
+      "R2": 0.9134447038651188,
+      "fit_seconds": 0.6571012999629602
+    },
+    {
+      "model": "RandomForest",
+      "split": "Validation",
+      "rows": 3100,
+      "MAE": 329.4595178045672,
+      "RMSE": 398.00145899412644,
+      "R2": 0.8937841563343518,
+      "fit_seconds": 0.6940965000540018
+    }
+  ],
+  "final_training": {
+    "start": "2026-06-01",
+    "end": "2026-07-31",
+    "rows": 6100,
+    "MAE": 182.9717922591179,
+    "RMSE": 269.90405650416744,
+    "R2": 0.9534540149286187
+  },
+  "test": {
+    "MAE": 218.8602482412696,
+    "RMSE": 299.1361155369196,
+    "R2": 0.9386993096790693
+  },
+  "test_evaluation_count": 1,
+  "prediction_postprocessing": "clip negative predictions to zero; no rounding for evaluation",
+  "model_bytes": 2909,
+  "quality": {
+    "rows": 129049,
+    "columns": [
+      "승하차일자",
+      "관할관청",
+      "정류소ID",
+      "정류소번호",
+      "정류소명",
+      "승차합계",
+      "초승",
+      "환승",
+      "하차"
+    ],
+    "station_count": 1435,
+    "date_count": 92,
+    "date_start": "2026-06-01",
+    "date_end": "2026-08-31",
+    "missing_by_column": {
+      "승하차일자": 0,
+      "관할관청": 0,
+      "정류소ID": 0,
+      "정류소번호": 0,
+      "정류소명": 0,
+      "승차합계": 0,
+      "초승": 0,
+      "환승": 0,
+      "하차": 0
+    },
+    "duplicate_station_dates": 0,
+    "zero_boarding_rows": 5481,
+    "absent_station_dates": 2971,
+    "sha256": "67eab89c329abbfe75421c9b25e2aec0dadd9dfc699b2096dd2bf0da4ae4811b",
+    "matches_expected": true
+  },
+  "versions": {
+    "python": "3.12.6",
+    "pandas": "2.3.3",
+    "numpy": "2.5.4",
+    "scikit-learn": "1.8.0",
+    "joblib": "1.6.0"
+  }
+}

@@ -1,0 +1,10 @@
+.venv/
+venv/
+__pycache__/
+.ipynb_checkpoints/
+.env
+reference_materials/
+tmp/
+*.tmp
+*.log
+.pytest_cache/
