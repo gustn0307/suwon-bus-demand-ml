@@ -20,6 +20,11 @@ from streamlit.testing.v1 import AppTest
 from train import DATA, ROOT, RAW_FEATURES, load_data, make_features, predict_counts, select_stations
 
 
+def csv_sha256_lf(content):
+    """파일을 쓰지 않고 CRLF만 LF로 정규화해 Git 원본과 비교할 해시를 구한다."""
+    return hashlib.sha256(content.replace(b"\r\n", b"\n")).hexdigest()
+
+
 class MVPTests(unittest.TestCase):
     """재학습 없이 저장된 MVP의 핵심 계약과 실제 앱 상호작용을 확인한다."""
 
@@ -33,7 +38,15 @@ class MVPTests(unittest.TestCase):
 
     def test_original_and_observations(self):
         """원본 해시·0명 관측·원래의 행 수가 보존되었는지 확인한다."""
-        self.assertEqual(self.quality["sha256"], "67eab89c329abbfe75421c9b25e2aec0dadd9dfc699b2096dd2bf0da4ae4811b")
+        original = DATA.read_bytes()
+        expected = "67eab89c329abbfe75421c9b25e2aec0dadd9dfc699b2096dd2bf0da4ae4811b"
+        self.assertEqual(self.quality["sha256"], hashlib.sha256(original).hexdigest())
+        self.assertEqual(csv_sha256_lf(original), expected)
+        # 동일한 CSV의 LF·CRLF 모두 기존 기대 해시를 만족해야 한다.
+        lf = original.replace(b"\r\n", b"\n")
+        for ending, content in [("LF", lf), ("CRLF", lf.replace(b"\n", b"\r\n"))]:
+            with self.subTest(line_ending=ending):
+                self.assertEqual(csv_sha256_lf(content), expected)
         self.assertTrue(self.quality["matches_expected"])
         self.assertEqual(self.quality["zero_boarding_rows"], 5481)
         self.assertTrue(self.stations["정류소번호"].str.startswith("0").any())
@@ -135,7 +148,10 @@ def check_server():
 def main():
     """검증을 실행하고 통과·실패 및 서버 종료 결과를 JSON으로 기록한다."""
     result = unittest.TextTestRunner(verbosity=2).run(unittest.defaultTestLoader.loadTestsFromTestCase(MVPTests))
-    summary = {"tests_run": result.testsRun, "failures": len(result.failures), "errors": len(result.errors), "success": result.wasSuccessful(), "csv_sha256_after": hashlib.sha256(DATA.read_bytes()).hexdigest()}
+    original = DATA.read_bytes()
+    summary = {"tests_run": result.testsRun, "failures": len(result.failures), "errors": len(result.errors), "success": result.wasSuccessful(),
+               "csv_sha256_after": hashlib.sha256(original).hexdigest(),
+               "csv_sha256_lf_normalized": csv_sha256_lf(original)}
     if result.wasSuccessful():
         summary["server"] = check_server()
     (ROOT / "outputs/validation.json").write_text(json.dumps(summary, ensure_ascii=False, indent=2), encoding="utf-8")

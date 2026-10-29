@@ -3,7 +3,8 @@
   "failures": 0,
   "errors": 0,
   "success": true,
-  "csv_sha256_after": "67eab89c329abbfe75421c9b25e2aec0dadd9dfc699b2096dd2bf0da4ae4811b",
+  "csv_sha256_after": "d7789741769ffcd1dd0e0ccab9d0b1029eaf117b8a51ad2223ebe4e1c4d2561e",
+  "csv_sha256_lf_normalized": "67eab89c329abbfe75421c9b25e2aec0dadd9dfc699b2096dd2bf0da4ae4811b",
   "server": {
     "health": "ok",
     "page_http_status": 200,
