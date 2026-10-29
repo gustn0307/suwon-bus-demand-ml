@@ -2,6 +2,13 @@
 
 정류소ID와 날짜로 **정류소별 하루 승차 인원**을 예측하는 Scikit-learn·Streamlit MVP입니다. 2026년 6–7월 이용량 기준 상위 100개 정류소만 대상으로 합니다. 기존 학습·노트북 실행 결과를 보존하고, Windows 집 PC에서 저장 모델과 앱 동작을 재검증했습니다(2026-10-29).
 
+## 서비스 체험
+
+**[수원시 버스 승차 수요 예측 서비스 바로가기](https://suwon-bus-demand.streamlit.app)**
+
+Streamlit Community Cloud에 배포된 머신러닝 예측 서비스입니다.
+정류소와 날짜를 선택하여 예상 일일 승차 인원을 확인할 수 있습니다.
+
 ## 설치·실행
 
 Windows PowerShell에서 복제한 `suwon-bus-demand-ml` 폴더를 열고, `README.md`와 `app.py`가 있는 프로젝트 루트에서 실행합니다. 드라이브나 상위 폴더 이름과 관계없이 아래 명령을 사용합니다. 패키지 버전은 `requirements.txt`에 고정했습니다.

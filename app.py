@@ -42,7 +42,7 @@ def main():
     selected_date = st.date_input("예측 날짜", value=date(2026, 9, 1), min_value=date(2026, 6, 1), max_value=date(2027, 8, 31))
     training_end = date.fromisoformat(metrics["final_training"]["end"])
     if selected_date > training_end:
-        st.warning(f"최종 학습일은 {training_end}입니다. 이 예측은 2026년 6~8월 과거 3개월 자료의 패턴을 참고하는 제한적 추정입니다. 모델 학습에는 6~7월만 사용했고 8월은 테스트로 보존했습니다. 날씨·공휴일·노선 변경은 반영하지 않습니다.")
+        st.warning(f"최종 학습일은 {training_end}입니다. 이 예측은 2026년 6-8월 과거 3개월 자료의 패턴을 참고하는 제한적 추정입니다. 모델 학습에는 6-7월만 사용했고 8월은 테스트로 보존했습니다. 날씨·공휴일·노선 변경은 반영하지 않습니다.")
     else:
         st.info("학습 기간 날짜의 예측입니다. 이미 학습에 사용된 날짜이므로 미래 예측 성능으로 해석하지 마세요.")
     if st.button("일일 승차 인원 예측", type="primary"):
